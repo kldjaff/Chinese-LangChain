@@ -1,0 +1,307 @@
+#
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple tensorflow
+
+Successfully installed absl-py-1.4.0 astunparse-1.6.3 cachetools-5.3.0 flatbuffers-23.5.8 gast-0.4.0 google-auth-2.17.3 google-auth-oauthlib-1.0.0 google-pasta-0.2.0 grpcio-1.54.0 jax-0.4.9 keras-2.12.0 libclang-16.0.0 ml-dtypes-0.1.0 oauthlib-3.2.2 opt-einsum-3.3.0 protobuf-4.23.0 requests-oauthlib-1.3.1 rsa-4.9 tensorboard-2.12.3 tensorboard-data-server-0.7.0 tensorflow-2.12.0 tensorflow-estimator-2.12.0 tensorflow-intel-2.12.0 tensorflow-io-gcs-filesystem-0.31.0 termcolor-2.3.0
+
+# 
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+
+
+
+
+E:\KOU01\clangchain>python my2.py
+Explicitly passing a `revision` is encouraged when loading a model with custom code to ensure no malicious code has been contributed in a newer revision.
+Explicitly passing a `revision` is encouraged when loading a configuration with custom code to ensure no malicious code has been contributed in a newer revision.
+Explicitly passing a `revision` is encouraged when loading a model with custom code to ensure no malicious code has been contributed in a newer revision.
+Downloading pytorch_model.bin: 100%|██████████████████████████████████████████████| 3.89G/3.89G [17:22<00:00, 3.73MB/s]
+E:\anaconda3\lib\site-packages\huggingface_hub\file_download.py:133: UserWarning: `huggingface_hub` cache-system uses symlinks by default to efficiently store duplicated files but your machine does not support them in C:\Users\root\.cache\huggingface\hub. Caching files will still work but in a degraded version that might require more space on your disk. This warning can be disabled by setting the `HF_HUB_DISABLE_SYMLINKS_WARNING` environment variable. For more details, see https://huggingface.co/docs/huggingface_hub/how-to-cache#limitations.
+To support symlinks on Windows, you either need to activate Developer Mode or to run Python as an administrator. In order to see activate developer mode, see this article: https://docs.microsoft.com/en-us/windows/apps/get-started/enable-your-device-for-development
+  warnings.warn(message)
+No compiled kernel found.
+Compiling kernels : C:\Users\root\.cache\huggingface\modules\transformers_modules\THUDM\chatglm-6b-int4\d8a6cfc6cb4d5b0fbc51183e26c06f4a3cb26947\quantization_kernels_parallel.c
+Compiling gcc -O3 -fPIC -pthread -fopenmp -std=c99 C:\Users\root\.cache\huggingface\modules\transformers_modules\THUDM\chatglm-6b-int4\d8a6cfc6cb4d5b0fbc51183e26c06f4a3cb26947\quantization_kernels_parallel.c -shared -o C:\Users\root\.cache\huggingface\modules\transformers_modules\THUDM\chatglm-6b-int4\d8a6cfc6cb4d5b0fbc51183e26c06f4a3cb26947\quantization_kernels_parallel.so
+'gcc' 不是内部或外部命令，也不是可运行的程序
+或批处理文件。
+Compile default cpu kernel failed, using default cpu kernel code.
+Compiling gcc -O3 -fPIC -std=c99 C:\Users\root\.cache\huggingface\modules\transformers_modules\THUDM\chatglm-6b-int4\d8a6cfc6cb4d5b0fbc51183e26c06f4a3cb26947\quantization_kernels.c -shared -o C:\Users\root\.cache\huggingface\modules\transformers_modules\THUDM\chatglm-6b-int4\d8a6cfc6cb4d5b0fbc51183e26c06f4a3cb26947\quantization_kernels.so
+'gcc' 不是内部或外部命令，也不是可运行的程序
+或批处理文件。
+Compile default cpu kernel failed.
+Failed to load kernel.
+Cannot load cpu kernel, don't use quantized model on cpu.
+Using quantization cache
+Applying quantization to glm layers
+╭─────────────────────────────── Traceback (most recent call last) ────────────────────────────────╮
+│ E:\KOU01\clangchain\my2.py:25 in <module>                                                        │
+│                                                                                                  │
+│    22                                                                                            │
+│    23                                                                                            │
+│    24 config = LangChainCFG()                                                                    │
+│ ❱  25 application = LangChainApplication(config)                                                 │
+│    26                                                                                            │
+│    27 application.source_service.init_source_vector()                                            │
+│    28                                                                                            │
+│                                                                                                  │
+│ E:\KOU01\clangchain\clc\langchain_application.py:24 in __init__                                  │
+│                                                                                                  │
+│   21 │   def __init__(self, config):                                                             │
+│   22 │   │   self.config = config                                                                │
+│   23 │   │   self.llm_service = ChatGLMService()                                                 │
+│ ❱ 24 │   │   self.llm_service.load_model(model_name_or_path=self.config.llm_model_name)          │
+│   25 │   │   # self.llm_service.load_model_on_gpus(model_name_or_path=self.config.llm_model_n    │
+│   26 │   │   self.source_service = SourceService(config)                                         │
+│   27                                                                                             │
+│                                                                                                  │
+│ E:\KOU01\clangchain\clc\gpt_service.py:59 in load_model                                          │
+│                                                                                                  │
+│    56 │   │   │   model_name_or_path,                                                            │
+│    57 │   │   │   trust_remote_code=True                                                         │
+│    58 │   │   )                                                                                  │
+│ ❱  59 │   │   self.model = AutoModel.from_pretrained(model_name_or_path, trust_remote_code=Tru   │
+│    60 │   │   self.model = self.model.eval()                                                     │
+│    61 │                                                                                          │
+│    62 │   def auto_configure_device_map(self, num_gpus: int) -> Dict[str, int]:                  │
+│                                                                                                  │
+│ E:\anaconda3\lib\site-packages\torch\nn\modules\module.py:905 in cuda                            │
+│                                                                                                  │
+│    902 │   │   Returns:                                                                          │
+│    903 │   │   │   Module: self                                                                  │
+│    904 │   │   """                                                                               │
+│ ❱  905 │   │   return self._apply(lambda t: t.cuda(device))                                      │
+│    906 │                                                                                         │
+│    907 │   def ipu(self: T, device: Optional[Union[int, device]] = None) -> T:                   │
+│    908 │   │   r"""Moves all model parameters and buffers to the IPU.                            │
+│                                                                                                  │
+│ E:\anaconda3\lib\site-packages\torch\nn\modules\module.py:797 in _apply                          │
+│                                                                                                  │
+│    794 │                                                                                         │
+│    795 │   def _apply(self, fn):                                                                 │
+│    796 │   │   for module in self.children():                                                    │
+│ ❱  797 │   │   │   module._apply(fn)                                                             │
+│    798 │   │                                                                                     │
+│    799 │   │   def compute_should_use_set_data(tensor, tensor_applied):                          │
+│    800 │   │   │   if torch._has_compatible_shallow_copy_type(tensor, tensor_applied):           │
+│                                                                                                  │
+│ E:\anaconda3\lib\site-packages\torch\nn\modules\module.py:797 in _apply                          │
+│                                                                                                  │
+│    794 │                                                                                         │
+│    795 │   def _apply(self, fn):                                                                 │
+│    796 │   │   for module in self.children():                                                    │
+│ ❱  797 │   │   │   module._apply(fn)                                                             │
+│    798 │   │                                                                                     │
+│    799 │   │   def compute_should_use_set_data(tensor, tensor_applied):                          │
+│    800 │   │   │   if torch._has_compatible_shallow_copy_type(tensor, tensor_applied):           │
+│                                                                                                  │
+│ E:\anaconda3\lib\site-packages\torch\nn\modules\module.py:820 in _apply                          │
+│                                                                                                  │
+│    817 │   │   │   # track autograd history of `param_applied`, so we have to use                │
+│    818 │   │   │   # `with torch.no_grad():`                                                     │
+│    819 │   │   │   with torch.no_grad():                                                         │
+│ ❱  820 │   │   │   │   param_applied = fn(param)                                                 │
+│    821 │   │   │   should_use_set_data = compute_should_use_set_data(param, param_applied)       │
+│    822 │   │   │   if should_use_set_data:                                                       │
+│    823 │   │   │   │   param.data = param_applied                                                │
+│                                                                                                  │
+│ E:\anaconda3\lib\site-packages\torch\nn\modules\module.py:905 in <lambda>                        │
+│                                                                                                  │
+│    902 │   │   Returns:                                                                          │
+│    903 │   │   │   Module: self                                                                  │
+│    904 │   │   """                                                                               │
+│ ❱  905 │   │   return self._apply(lambda t: t.cuda(device))                                      │
+│    906 │                                                                                         │
+│    907 │   def ipu(self: T, device: Optional[Union[int, device]] = None) -> T:                   │
+│    908 │   │   r"""Moves all model parameters and buffers to the IPU.                            │
+│                                                                                                  │
+│ E:\anaconda3\lib\site-packages\torch\cuda\__init__.py:239 in _lazy_init                          │
+│                                                                                                  │
+│    236 │   │   │   │   "Cannot re-initialize CUDA in forked subprocess. To use CUDA with "       │
+│    237 │   │   │   │   "multiprocessing, you must use the 'spawn' start method")                 │
+│    238 │   │   if not hasattr(torch._C, '_cuda_getDeviceCount'):                                 │
+│ ❱  239 │   │   │   raise AssertionError("Torch not compiled with CUDA enabled")                  │
+│    240 │   │   if _cudart is None:                                                               │
+│    241 │   │   │   raise AssertionError(                                                         │
+│    242 │   │   │   │   "libcudart functions unavailable. It looks like you have a broken build?  │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+AssertionError: Torch not compiled with CUDA enabled
+
+
+pip3 install torch==1.12.1+cu113 torchvision==0.13.1+cu113  -f https://download.pytorch.org/whl/cu113/torch_stable.html
+
+
+
+E:\KOU01\clangchain>pip3 install torch==1.12.1+cu113 torchvision==0.13.1+cu113  -f https://download.pytorch.org/whl/cu113/torch_stable.html
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Looking in links: https://download.pytorch.org/whl/cu113/torch_stable.html
+Collecting torch==1.12.1+cu113
+  Using cached https://download.pytorch.org/whl/cu113/torch-1.12.1%2Bcu113-cp310-cp310-win_amd64.whl (2143.8 MB)
+Collecting torchvision==0.13.1+cu113
+  Downloading https://download.pytorch.org/whl/cu113/torchvision-0.13.1%2Bcu113-cp310-cp310-win_amd64.whl (4.7 MB)
+     ---------------------------------------- 4.7/4.7 MB 3.3 MB/s eta 0:00:00
+Requirement already satisfied: typing-extensions in e:\anaconda3\lib\site-packages (from torch==1.12.1+cu113) (4.5.0)
+Requirement already satisfied: numpy in e:\anaconda3\lib\site-packages (from torchvision==0.13.1+cu113) (1.23.5)
+Requirement already satisfied: requests in e:\anaconda3\lib\site-packages (from torchvision==0.13.1+cu113) (2.30.0)
+Requirement already satisfied: pillow!=8.3.*,>=5.3.0 in e:\anaconda3\lib\site-packages (from torchvision==0.13.1+cu113) (9.4.0)
+Requirement already satisfied: certifi>=2017.4.17 in e:\anaconda3\lib\site-packages (from requests->torchvision==0.13.1+cu113) (2022.12.7)
+Requirement already satisfied: charset-normalizer<4,>=2 in e:\anaconda3\lib\site-packages (from requests->torchvision==0.13.1+cu113) (2.0.4)
+Requirement already satisfied: urllib3<3,>=1.21.1 in e:\anaconda3\lib\site-packages (from requests->torchvision==0.13.1+cu113) (1.26.14)
+Requirement already satisfied: idna<4,>=2.5 in e:\anaconda3\lib\site-packages (from requests->torchvision==0.13.1+cu113) (3.4)
+Installing collected packages: torch, torchvision
+  Attempting uninstall: torch
+    Found existing installation: torch 2.0.0
+    Uninstalling torch-2.0.0:
+      Successfully uninstalled torch-2.0.0
+  Attempting uninstall: torchvision
+    Found existing installation: torchvision 0.15.1
+    Uninstalling torchvision-0.15.1:
+      Successfully uninstalled torchvision-0.15.1
+Successfully installed torch-1.12.1+cu113 torchvision-0.13.1+cu113
+
+E:\KOU01\clangchain>python my2.py
+Explicitly passing a `revision` is encouraged when loading a model with custom code to ensure no malicious code has been contributed in a newer revision.
+Explicitly passing a `revision` is encouraged when loading a configuration with custom code to ensure no malicious code has been contributed in a newer revision.
+Explicitly passing a `revision` is encouraged when loading a model with custom code to ensure no malicious code has been contributed in a newer revision.
+No compiled kernel found.
+Compiling kernels : C:\Users\root\.cache\huggingface\modules\transformers_modules\THUDM\chatglm-6b-int4\d8a6cfc6cb4d5b0fbc51183e26c06f4a3cb26947\quantization_kernels_parallel.c
+Compiling gcc -O3 -fPIC -pthread -fopenmp -std=c99 C:\Users\root\.cache\huggingface\modules\transformers_modules\THUDM\chatglm-6b-int4\d8a6cfc6cb4d5b0fbc51183e26c06f4a3cb26947\quantization_kernels_parallel.c -shared -o C:\Users\root\.cache\huggingface\modules\transformers_modules\THUDM\chatglm-6b-int4\d8a6cfc6cb4d5b0fbc51183e26c06f4a3cb26947\quantization_kernels_parallel.so
+'gcc' 不是内部或外部命令，也不是可运行的程序
+或批处理文件。
+Compile default cpu kernel failed, using default cpu kernel code.
+Compiling gcc -O3 -fPIC -std=c99 C:\Users\root\.cache\huggingface\modules\transformers_modules\THUDM\chatglm-6b-int4\d8a6cfc6cb4d5b0fbc51183e26c06f4a3cb26947\quantization_kernels.c -shared -o C:\Users\root\.cache\huggingface\modules\transformers_modules\THUDM\chatglm-6b-int4\d8a6cfc6cb4d5b0fbc51183e26c06f4a3cb26947\quantization_kernels.so
+'gcc' 不是内部或外部命令，也不是可运行的程序
+或批处理文件。
+Compile default cpu kernel failed.
+Failed to load kernel.
+Cannot load cpu kernel, don't use quantized model on cpu.
+Using quantization cache
+Applying quantization to glm layers
+2023-05-10 18:01:57,340 [INFO] [SentenceTransformer.py:66] Load pretrained SentenceTransformer: GanymedeNil/text2vec-large-chinese
+Downloading (…)58aa3/.gitattributes: 100%|██████████████████████████████████████████████████████████████████████████████████████████████| 1.48k/1.48k [00:00<?, ?B/s]
+Downloading (…)026ff58aa3/README.md: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████| 317/317 [00:00<?, ?B/s]
+Downloading (…)6ff58aa3/config.json: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████| 821/821 [00:00<?, ?B/s]
+Downloading (…)aa3/eval_results.txt: 100%|████████████████████████████████████████████████████████████████████████████████████████████████| 69.0/69.0 [00:00<?, ?B/s]
+Downloading pytorch_model.bin: 100%|████████████████████████████████████████████████████████████████████████████████████████████| 1.30G/1.30G [05:15<00:00, 4.13MB/s]
+Downloading (…)cial_tokens_map.json: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████| 125/125 [00:00<?, ?B/s]
+Downloading (…)58aa3/tokenizer.json: 100%|█████████████████████████████████████████████████████████████████████████████████████████| 439k/439k [00:01<00:00, 370kB/s]
+Downloading (…)okenizer_config.json: 100%|██████████████████████████████████████████████████████████████████████████████████████████████████| 514/514 [00:00<?, ?B/s]
+Downloading (…)026ff58aa3/vocab.txt: 100%|████████████████████████████████████████████████████████████████████████████████████████| 110k/110k [00:00<00:00, 1.17MB/s]
+2023-05-10 18:07:21,739 [WARNING] [SentenceTransformer.py:805] No sentence-transformers model found with name C:\Users\root/.cache\torch\sentence_transformers\GanymedeNil_text2vec-large-chinese. Creating a new one with MEAN pooling.
+2023-05-10 18:07:23,455 [INFO] [SentenceTransformer.py:105] Use pytorch device: cuda
+姚明.txt
+[nltk_data] Downloading package punkt to
+[nltk_data]     C:\Users\root\AppData\Roaming\nltk_data...
+[nltk_data]   Unzipping tokenizers\punkt.zip.
+[nltk_data] Downloading package averaged_perceptron_tagger to
+[nltk_data]     C:\Users\root\AppData\Roaming\nltk_data...
+[nltk_data]   Unzipping taggers\averaged_perceptron_tagger.zip.
+╭─────────────────────────────── Traceback (most recent call last) ────────────────────────────────╮
+│ E:\KOU01\clangchain\my2.py:27 in <module>                                                        │
+│                                                                                                  │
+│    24 config = LangChainCFG()                                                                    │
+│    25 application = LangChainApplication(config)                                                 │
+│    26                                                                                            │
+│ ❱  27 application.source_service.init_source_vector()                                            │
+│    28                                                                                            │
+│    29 def get_file_list():                                                                       │
+│    30 │   if not os.path.exists("docs"):                                                         │
+│                                                                                                  │
+│ E:\KOU01\clangchain\clc\source_service.py:39 in init_source_vector                               │
+│                                                                                                  │
+│   36 │   │   │   if doc.endswith('.txt'):                                                        │
+│   37 │   │   │   │   print(doc)                                                                  │
+│   38 │   │   │   │   loader = UnstructuredFileLoader(f'{self.docs_path}/{doc}', mode="element    │
+│ ❱ 39 │   │   │   │   doc = loader.load()                                                         │
+│   40 │   │   │   │   docs.extend(doc)                                                            │
+│   41 │   │   self.vector_store = FAISS.from_documents(docs, self.embeddings)                     │
+│   42 │   │   self.vector_store.save_local(self.vector_store_path)                                │
+│                                                                                                  │
+│ E:\anaconda3\lib\site-packages\langchain\document_loaders\unstructured.py:61 in load             │
+│                                                                                                  │
+│    58 │                                                                                          │
+│    59 │   def load(self) -> List[Document]:                                                      │
+│    60 │   │   """Load file."""                                                                   │
+│ ❱  61 │   │   elements = self._get_elements()                                                    │
+│    62 │   │   if self.mode == "elements":                                                        │
+│    63 │   │   │   docs: List[Document] = list()                                                  │
+│    64 │   │   │   for element in elements:                                                       │
+│                                                                                                  │
+│ E:\anaconda3\lib\site-packages\langchain\document_loaders\unstructured.py:93 in _get_elements    │
+│                                                                                                  │
+│    90 │   │   super().__init__(mode=mode, **unstructured_kwargs)                                 │
+│    91 │                                                                                          │
+│    92 │   def _get_elements(self) -> List:                                                       │
+│ ❱  93 │   │   from unstructured.partition.auto import partition                                  │
+│    94 │   │                                                                                      │
+│    95 │   │   return partition(filename=self.file_path, **self.unstructured_kwargs)              │
+│    96                                                                                            │
+│                                                                                                  │
+│ E:\anaconda3\lib\site-packages\unstructured\partition\auto.py:14 in <module>                     │
+│                                                                                                  │
+│    11 from unstructured.partition.email import partition_email                                   │
+│    12 from unstructured.partition.epub import partition_epub                                     │
+│    13 from unstructured.partition.html import partition_html                                     │
+│ ❱  14 from unstructured.partition.image import partition_image                                   │
+│    15 from unstructured.partition.json import partition_json                                     │
+│    16 from unstructured.partition.md import partition_md                                         │
+│    17 from unstructured.partition.msg import partition_msg                                       │
+│                                                                                                  │
+│ E:\anaconda3\lib\site-packages\unstructured\partition\image.py:3 in <module>                     │
+│                                                                                                  │
+│    1 from typing import List, Optional                                                           │
+│    2                                                                                             │
+│ ❱  3 import pytesseract                                                                          │
+│    4 from PIL import Image                                                                       │
+│    5                                                                                             │
+│    6 from unstructured.documents.elements import Element                                         │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────╯
+ModuleNotFoundError: No module named 'pytesseract'
+
+
+
+E:\KOU01\clangchain>pip3 install pytesseract
+Looking in indexes: https://pypi.tuna.tsinghua.edu.cn/simple
+Collecting pytesseract
+  Downloading https://pypi.tuna.tsinghua.edu.cn/packages/c5/54/ec007336f38d2d4ce61f3544af3e6855dacbf04a1ac8294f10cabe81146f/pytesseract-0.3.10-py3-none-any.whl (14 kB)
+Requirement already satisfied: Pillow>=8.0.0 in e:\anaconda3\lib\site-packages (from pytesseract) (9.4.0)
+Requirement already satisfied: packaging>=21.3 in e:\anaconda3\lib\site-packages (from pytesseract) (22.0)
+Installing collected packages: pytesseract
+Successfully installed pytesseract-0.3.10
+
+
+
+E:\KOU01\clangchain>python my2.py
+Explicitly passing a `revision` is encouraged when loading a model with custom code to ensure no malicious code has been contributed in a newer revision.
+Explicitly passing a `revision` is encouraged when loading a configuration with custom code to ensure no malicious code has been contributed in a newer revision.
+Explicitly passing a `revision` is encouraged when loading a model with custom code to ensure no malicious code has been contributed in a newer revision.
+No compiled kernel found.
+Compiling kernels : C:\Users\root\.cache\huggingface\modules\transformers_modules\THUDM\chatglm-6b-int4\d8a6cfc6cb4d5b0fbc51183e26c06f4a3cb26947\quantization_kernels_parallel.c
+Compiling gcc -O3 -fPIC -pthread -fopenmp -std=c99 C:\Users\root\.cache\huggingface\modules\transformers_modules\THUDM\chatglm-6b-int4\d8a6cfc6cb4d5b0fbc51183e26c06f4a3cb26947\quantization_kernels_parallel.c -shared -o C:\Users\root\.cache\huggingface\modules\transformers_modules\THUDM\chatglm-6b-int4\d8a6cfc6cb4d5b0fbc51183e26c06f4a3cb26947\quantization_kernels_parallel.so
+'gcc' 不是内部或外部命令，也不是可运行的程序
+或批处理文件。
+Compile default cpu kernel failed, using default cpu kernel code.
+Compiling gcc -O3 -fPIC -std=c99 C:\Users\root\.cache\huggingface\modules\transformers_modules\THUDM\chatglm-6b-int4\d8a6cfc6cb4d5b0fbc51183e26c06f4a3cb26947\quantization_kernels.c -shared -o C:\Users\root\.cache\huggingface\modules\transformers_modules\THUDM\chatglm-6b-int4\d8a6cfc6cb4d5b0fbc51183e26c06f4a3cb26947\quantization_kernels.so
+'gcc' 不是内部或外部命令，也不是可运行的程序
+或批处理文件。
+Compile default cpu kernel failed.
+Failed to load kernel.
+Cannot load cpu kernel, don't use quantized model on cpu.
+Using quantization cache
+Applying quantization to glm layers
+2023-05-10 18:20:15,505 [INFO] [SentenceTransformer.py:66] Load pretrained SentenceTransformer: GanymedeNil/text2vec-large-chinese
+2023-05-10 18:20:18,848 [WARNING] [SentenceTransformer.py:805] No sentence-transformers model found with name C:\Users\root/.cache\torch\sentence_transformers\GanymedeNil_text2vec-large-chinese. Creating a new one with MEAN pooling.
+2023-05-10 18:20:20,536 [INFO] [SentenceTransformer.py:105] Use pytorch device: cuda
+姚明.txt
+王治郅.txt
+科比.txt
+Batches: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 1/1 [00:01<00:00,  1.48s/it]
+2023-05-10 18:20:22,866 [INFO] [loader.py:54] Loading faiss with AVX2 support.
+2023-05-10 18:20:22,866 [INFO] [loader.py:58] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+2023-05-10 18:20:22,866 [INFO] [loader.py:64] Loading faiss.
+2023-05-10 18:20:23,005 [INFO] [loader.py:66] Successfully loaded faiss.
+Running on local URL:  http://0.0.0.0:8888
+
+To create a public link, set `share=True` in `launch()`.
+
+
+
+https://github.com/THUDM/ChatGLM-6B/issues/115
